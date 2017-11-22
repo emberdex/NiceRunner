@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 '''
 NiceRunner - an easy way to run multiple iterations of the same code.
 Developed by monotron (https://github.com/monotron)
