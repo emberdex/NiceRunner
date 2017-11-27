@@ -12,7 +12,7 @@ Simply execute `./nicerunner.py <file to run>`.
 
 - `-n <number> || --number-iterations <number>` defines the number of iterations to run.
 - `-t <seconds> || --time-limit <seconds>` determines the time to wait before considering the process deadlocked and killing it.
- `-s || --save-file` saves stdout and stderr to a file in the same directory as the 
+- `-s || --save-file` saves stdout and stderr to a file in the same directory as the 
 executable.
 
 For example, `./nicerunner -n 100 -t 5 ./program` runs `./program` 100 times, and waits for 5 seconds before killing the process.
