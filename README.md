@@ -8,6 +8,10 @@ An easy way to run multiple iterations of the same code.
 
 Simply execute `./nicerunner.py <file to run>`.
 
+If you want to add NiceRunner to /usr/bin, run the following commands as root:
+- `chmod +x install.sh`
+- `./install.sh`
+
 ## Command-line arguments
 
 - `-n <number> || --number-iterations <number>` defines the number of iterations to run.
