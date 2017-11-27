@@ -1,5 +1,6 @@
 # NiceRunner
 An easy way to run multiple iterations of the same code.
+![A screenshot of NiceRunner in action.](https://i.imgur.com/JgkyzIW.png "A screenshot of NiceRunner in action.")
 
 ## Instructions
 
