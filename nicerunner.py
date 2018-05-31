@@ -113,10 +113,14 @@ def execute():
 				try:
 					os.killpg(os.getpgid(process.pid), signal.SIGKILL)
 				except AttributeError: # make it work on Windows
-					os.kill(process.pid, -1)
+					try:
+						os.kill(process.pid, signal.SIGTERM)
+					except PermissionError:
+						print("{}Failed to kill process.\nPlease run this script as an administrator.{}".format(ANSI.red, ANSI.reset))
 				timed_out = True
 
-				stderr_file.write("=* Iteration {} timed out and was killed after {} seconds. *=".format(x, RunnerData.time_limit))
+				if RunnerData.save_file is True: 
+					stderr_file.write("=* Iteration {} timed out and was killed after {} seconds. *=".format(x, RunnerData.time_limit))
 
 				continue
 
