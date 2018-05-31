@@ -5,7 +5,7 @@ An easy way to run multiple iterations of the same code.
 ## Instructions
 
 - This script requires python3 to run.
-- Only tested on a Linux machine, but **should** work on Windows. Open an issue if not!
+- Tested on Windows and Linux, but should work on macOS. If not, feel free to open an issue!
 
 Simply execute `./nicerunner.py <file to run>`.
 
