@@ -83,8 +83,8 @@ def execute():
 	stdout_file = ""
 
 	if RunnerData.save_file:
-		stderr_filename = "{}.stdout.log".format(RunnerData.executable)
-		stdout_filename = "{}.stderr.log".format(RunnerData.executable)
+		stderr_filename = "{}.stderr.log".format(RunnerData.executable)
+		stdout_filename = "{}.stdout.log".format(RunnerData.executable)
 
 		stderr_file = open(stderr_filename, "w")
 		stdout_file = open(stdout_filename, "w")
@@ -98,21 +98,21 @@ def execute():
 		process = ""
 
 		if RunnerData.save_file:
-			try:
+			if hasattr(os, 'setsid'):
 				process = subprocess.Popen(RunnerData.executable, stdout=stdout_file, stderr=stderr_file, preexec_fn=os.setsid)
-			except AttributeError:
+			else:
 				process = subprocess.Popen(RunnerData.executable, stdout=stdout_file, stderr=stderr_file)
 		else:
-			try:
+			if hasattr(os, 'setsid'):
 				process = subprocess.Popen(RunnerData.executable, stdout=subprocess.PIPE, stderr=subprocess.PIPE, preexec_fn=os.setsid)
-			except AttributeError:
+			else:
 				process = subprocess.Popen(RunnerData.executable, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
+		
 		while process.poll() == None:
 			if RunnerData.time_limit > 0 and (time.time() - start) > RunnerData.time_limit:
-				try:
+				if hasattr(os, 'killpg') and hasattr(os, 'getpgid') and hasattr(signal, 'signal.SIGKILL'):
 					os.killpg(os.getpgid(process.pid), signal.SIGKILL)
-				except AttributeError: # make it work on Windows
+				else:
 					try:
 						os.kill(process.pid, signal.SIGTERM)
 					except PermissionError:
@@ -134,12 +134,12 @@ def execute():
 			print("{} (return value: {}){}".format(ANSI.yelw, process.returncode, ANSI.reset), end="")
 			print("")
 
-		if RunnerData.save_file:
-			stderr_file.flush()
-			stdout_file.flush()
+	if RunnerData.save_file:
+		stderr_file.flush()
+		stdout_file.flush()
 
-			stdout_file.close()
-			stderr_file.close()
+		stdout_file.close()
+		stderr_file.close()
 
 parse_arguments()
 
